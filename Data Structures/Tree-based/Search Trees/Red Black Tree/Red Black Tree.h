@@ -15,7 +15,6 @@ public:
     ~RBTree() {
         release_node(root);
     }
-
     void insert(const T& key) {
         Node* n = new Node{key, NIL_p, NIL_p, NIL_p, RED};          //Create a new RED Node
         
@@ -38,36 +37,8 @@ public:
 
         insert_fixup(n); 
     }
-    void erase(const Node* pos) {
-        Node* x = pos;              //Node that would be removed or moved
-        Node* y = NIL_p;            //Node that would take the place of x
-        Color x_original_color = x->color;
-        if (pos->left == NIL_p) {
-            y = pos->right;
-            transplant(pos, pos->right);            //pos->right can be NIL_p here
-        }
-        else if (pos->right == NIL_p) {
-            y = pos->left;
-            transplant(pos, pos->left);
-        }
-        else {
-            x = minimum(pos->right);
-            x_original_color = x->color;
-            y = x->right;                           //y can be NIL_p here
-            if (x->p != pos) {
-                transplant(x, y);
-                x->right = pos->right;
-                pos->right->p = x;
-            }
-            transplant(pos, x);
-            x->left = pos->left;
-            pos->left->p = x;
-
-            x->color = pos->color;
-        }
-        delete pos;
-        if (x_original_color == BLACK)
-            erase_fixup(y);
+    void erase(const T& key) {
+        erase(const_cast<Node*>(search(key)));
     }
     const Node* search(const T& key) const {
         Node* curr = root;
@@ -98,14 +69,45 @@ public:
     }
 
 private:
-    Node* subtree_minimum(Node* u) {
+    void erase(Node* pos) {
+        Node* x = pos;              //Node that would be removed or moved
+        Node* y = NIL_p;            //Node that would take the place of x
+        Color x_original_color = x->color;
+        if (pos->left == NIL_p) {
+            y = pos->right;
+            transplant(pos, pos->right);            //pos->right can be NIL_p here
+        }
+        else if (pos->right == NIL_p) {
+            y = pos->left;
+            transplant(pos, pos->left);
+        }
+        else {
+            x = const_cast<Node*>(subtree_minimum(pos->right));
+            x_original_color = x->color;
+            y = x->right;                           //y can be NIL_p here
+            if (x->p != pos) {
+                transplant(x, y);
+                x->right = pos->right;
+                pos->right->p = x;
+            }
+            transplant(pos, x);
+            x->left = pos->left;
+            pos->left->p = x;
+
+            x->color = pos->color;
+        }
+        delete pos;
+        if (x_original_color == BLACK)
+            erase_fixup(y);
+    }
+    const Node* subtree_minimum(const Node* u) const {
         /*Returns the minimum node in the subtree rooted at u.*/
         if (u == NIL_p) return NIL_p;
         while (u->left != NIL_p)
             u = u->left;
         return u;
     }
-    Node* subtree_maximum(Node* u) {
+    const Node* subtree_maximum(const Node* u) const {
         /*Returns the maximum node in the subtree rooted at u.*/
         if (u == NIL_p) return NIL_p;
         while (u->right != NIL_p)
