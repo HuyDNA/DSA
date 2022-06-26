@@ -15,6 +15,7 @@ public:
     ~RBTree() {
         release_node(root);
     }
+
     void insert(const T& key) {
         Node* n = new Node{key, NIL_p, NIL_p, NIL_p, RED};          //Create a new RED Node
         
@@ -37,9 +38,11 @@ public:
 
         insert_fixup(n); 
     }
+    
     void erase(const T& key) {
         erase(const_cast<Node*>(search(key)));
     }
+    
     const Node* search(const T& key) const {
         Node* curr = root;
         while (curr != NIL_p && curr->key != key) {
@@ -55,6 +58,7 @@ public:
     const Node* maximum() const {
         return subtree_maximum(root);
     }
+    
     const Node* predecessor(const Node* u) const {
         if (u->left != NIL_p) return maximum(u->left);
         while (u->p != NIL_p && u->p->right != u)
@@ -100,6 +104,7 @@ private:
         if (x_original_color == BLACK)
             erase_fixup(y);
     }
+    
     const Node* subtree_minimum(const Node* u) const {
         /*Returns the minimum node in the subtree rooted at u.*/
         if (u == NIL_p) return NIL_p;
@@ -196,6 +201,7 @@ private:
         root->color = BLACK;                            //set root's color to BLACK,
                                                         //essentially the reason why the tree's black height can increase 
     }
+    
     void erase_fixup(Node* n) {
         /*n could be NIL here, with its parent set appropriately and still handled correctly.*/
         while (n->color == BLACK && n != root) {
@@ -251,6 +257,7 @@ private:
         }
         n->color = BLACK;
     }
+    
     void release_node(Node* u) {
         /*Deallocate resources*/
         //Used in destructor
