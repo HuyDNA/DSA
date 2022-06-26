@@ -1,6 +1,9 @@
 #ifndef __RED__BLACK__TREE__HELL__
 #define __RED__BLACK__TREE__HELL__
+#include <iostream>
+#include <windows.h>                            //For color printing
 
+/*There are still bugs with the DELETE operation. OMGGGGG!!!!!!!!*/
 template <typename T>
 class RBTree {
     enum Color {BLACK, RED};
@@ -10,6 +13,20 @@ class RBTree {
         Node* right;
         Node* p;
         Color color;
+        
+        /*For visualization purposes only*/
+        friend std::ostream& operator<<(std::ostream& out, const Node& u) {
+            static HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+            int code;
+            switch (u.color) {
+                case BLACK: code = 0; break;
+                case RED: code = 4; break;
+            }
+            SetConsoleTextAttribute(h, code);
+            out << u.key;
+            SetConsoleTextAttribute(h, 7);
+            return out;
+        }
     };
 public:
     ~RBTree() {
@@ -40,7 +57,8 @@ public:
     }
     
     void erase(const T& key) {
-        erase(const_cast<Node*>(search(key)));
+        Node* u = const_cast<Node*>(search(key));
+        if (u != NIL_p) erase(u);
     }
     
     const Node* search(const T& key) const {
@@ -49,29 +67,39 @@ public:
             if (key < curr->key) curr = curr->left;
             else curr = curr->right;
         }
+        if (curr == NIL_p) return nullptr;
         return curr;
     }
     
     const Node* minimum() const {
-        return subtree_minimum(root);
+        const Node* v = subtree_minimum(root);
+        if (v == NIL_p) return nullptr;
+        return v;
     }
     const Node* maximum() const {
-        return subtree_maximum(root);
+        const Node* v = subtree_maximum(root);
+        if (v == NIL_p) return nullptr;
+        return v;
     }
     
     const Node* predecessor(const Node* u) const {
         if (u->left != NIL_p) return maximum(u->left);
         while (u->p != NIL_p && u->p->right != u)
             u = u->p;
+        if (u->p == NIL_p) return nullptr;
         return u->p;
     }
     const Node* successor(const Node* u) const {
         if (u->right != NIL_p) return minimum(u->right);
         while (u->p != NIL_p && u->p->left != u)
             u = u->p;
+        if (u->p == NIL_p) return nullptr;
         return u->p;
     }
 
+    void print() {
+        print("", root, false);
+    }
 private:
     void erase(Node* pos) {
         Node* x = pos;              //Node that would be removed or moved
@@ -257,7 +285,7 @@ private:
         }
         n->color = BLACK;
     }
-    
+
     void release_node(Node* u) {
         /*Deallocate resources*/
         //Used in destructor
@@ -268,7 +296,25 @@ private:
         delete u;    
     }
 
-    Node* root = NIL_p;
+    /*Stolen function from: https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c*/
+    void print(const std::string& prefix, const Node* curr, bool isLeft)
+    {
+        if( curr != NIL_p )
+        {
+            std::cout << prefix;
+
+            std::cout << (isLeft ? "├──" : "└──" );
+
+            // print the value of the node
+            std::cout << *curr << std::endl;
+
+            // enter the next tree level - left and right branch
+            print( prefix + (isLeft ? "│   " : "    "), curr->left, true);
+            print( prefix + (isLeft ? "│   " : "    "), curr->right, false);
+        }
+    }
+
+        Node* root = NIL_p;
     
     //using sentinel is more convenient as you won't have to worry about dereferencing nullptr.
     static Node NIL;                            //NIL is BLACK                
