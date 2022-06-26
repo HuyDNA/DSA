@@ -2,5 +2,6 @@
 #include <iostream>
 
 int main() {
-    RBTree<int>;
+    RBTree<int> tree;
+    
 }

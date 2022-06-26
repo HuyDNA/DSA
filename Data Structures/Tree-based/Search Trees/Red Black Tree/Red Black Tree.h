@@ -3,6 +3,14 @@
 
 template <typename T>
 class RBTree {
+    enum Color {BLACK, RED};
+    struct Node {
+        const T key;
+        Node* left;
+        Node* right;
+        Node* p;
+        Color color;
+    };
 public:
     ~RBTree() {
         release_node(root);
@@ -257,16 +265,8 @@ private:
     static Node NIL;                            //NIL is BLACK                
     constexpr static Node* NIL_p = &NIL;        //pointer to sentinel Node
     
-    enum Color {BLACK, RED};
-    struct Node {
-        const T key;
-        Node* left;
-        Node* right;
-        Node* p;
-        Color color;
-    };
 };
 
 template <typename T>
-RBTree<T>::Node RBTree<T>::NIL = {0, NIL_p, NIL_p, NIL_p, BLACK};
+typename RBTree<T>::Node RBTree<T>::NIL = {0, NIL_p, NIL_p, NIL_p, BLACK};
 #endif
