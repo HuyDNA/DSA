@@ -245,7 +245,7 @@ private:
         /*Deallocate resources*/
         //Used in destructor
 
-        if (u == nullptr) return;
+        if (u == NIL_p) return;
         release_node(u->left);
         release_node(u->right);
         delete u;    
