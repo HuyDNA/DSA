@@ -243,20 +243,23 @@ private:
                 }
                 /*If m's color is BLACK in this case, m can't be NIL. So referencing m's child is fine.*/
                 if (m->left->color == BLACK && m->right->color == BLACK) {  //case 2: n's sibling is BLACK, and its children are BLACK
-                    m->color = RED;                                         
-                    n = n->p;
+                    m->color = RED;                                         //case 2    
+                    n = n->p;                                               //case 2
                 }
-                else if (m->right->color == BLACK) {                        //case 3: n's sibling is BLACK, and its right child is BLACK
-                    m->left->color = BLACK;
-                    m->color = RED;
-                    right_rotate(m);
-                    m = n->p->right;
+                else {
+                    if (m->right->color == BLACK) {                         //case 3: n's sibling is BLACK, and its right child is BLACK
+                        m->left->color = BLACK;                             //case 3 -- transforms case 3 into case 4
+                        m->color = RED;                                     //case 3
+                        right_rotate(m);                                    //case 3
+                        m = n->p->right;                                    //case 3
+                    }
+                    m->color = n->p->color;                                 //case 4: n's sibling is BLACK, and its right child is RED
+                    n->p->color = BLACK;                                    //case 4
+                    m->right->color = BLACK;                                //case 4
+                    left_rotate(n->p);                                      //case 4
+                    
+                    n = root;
                 }
-                m->color = n->p->color;                                     //case 4: n's sibling is BLACK, and its right child is RED
-                n->p->color = BLACK;
-                m->right->color = BLACK;
-                left_rotate(n->p);
-                n = root;
             }
             else {                                                          //essentially the same, but with left, right swapped
                 Node* m = n->p->left;                      
@@ -270,17 +273,19 @@ private:
                     m->color = RED;                                         
                     n = n->p;
                 }
-                else if (m->left->color == BLACK) {                      
-                    m->right->color = BLACK;
-                    m->color = RED;
-                    left_rotate(m);
-                    m = n->p->left;
+                else {
+                    if (m->left->color == BLACK) {                      
+                        m->right->color = BLACK;
+                        m->color = RED;
+                        left_rotate(m);
+                        m = n->p->left;
+                    }
+                    m->color = n->p->color;
+                    n->p->color = BLACK;
+                    m->left->color = BLACK;
+                    right_rotate(n->p);
+                    n = root;
                 }
-                m->color = n->p->color;
-                n->p->color = BLACK;
-                m->left->color = BLACK;
-                right_rotate(n->p);
-                n = root;
             }
         }
         n->color = BLACK;
