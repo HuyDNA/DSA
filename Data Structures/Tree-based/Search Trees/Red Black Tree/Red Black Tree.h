@@ -3,7 +3,6 @@
 #include <iostream>
 #include <windows.h>                            //For color printing
 
-/*There are still bugs with the DELETE operation. OMGGGGG!!!!!!!!*/
 template <typename T>
 class RBTree {
     enum Color {BLACK, RED};
