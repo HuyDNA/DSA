@@ -5,7 +5,7 @@ This is based on what I have learned from the book [Introduction to Algorithm](h
 ## What is Red Black Tree? 
 **Red Black Tree** is a self-balancing tree data structure invented by Rudolf Bayer in 1972.
 
-Each node in an **Red Black Tree** has an additional **_Color_** bit which is either ![][red]`Red` or ![][black]`Black`, hence the name. To be more precise, **Red Black Tree** is a **_Binary Search Tree_** with the following properties:
+Each node in an **Red Black Tree** has an additional ***Color*** bit which is either ![][red]`Red` or ![][black]`Black`, hence the name. To be more precise, **Red Black Tree** is a ***Binary Search Tree*** with the following properties:
 1. All nodes with relevant keys are internal nodes and all leaf nodes are sentinels that are used in place of the usual **nullptr** value.
 2. Each node is either ![][red]`Red` or ![][black]`Black`. 
 3. The root node is ![][black]`Black`.
@@ -14,6 +14,10 @@ Each node in an **Red Black Tree** has an additional **_Color_** bit which is ei
 6. Every path from the root to any leaves contains the same number of ![][black]`Black` nodes.
 
 ## Why would I care about this red and black thing?
+**Red Black Tree** has the desired property of a balanced search tree: Its height is always $O(lgn)$ with $n$ is the number of keys. We have the following result:
+> **Theorem.** Given $n$ is the number of internal nodes, a **Red Black Tree**'s height is $O(lgn)$.
+
+**Proof.**
 ```cpp
 #include <iostream>
 
