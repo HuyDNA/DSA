@@ -1,5 +1,5 @@
 # Self-balancing Tree - Red Black Tree
-This is based on what I have learned from the book [](https://mitpress.mit.edu/books/introduction-algorithms-third-edition)`Introduction to Algorithms, 3rd Edititon (The MIT Press)`.
+This is based on what I have learned from the book [Introduction to Algorithm](https://mitpress.mit.edu/books/introduction-algorithms-third-edition).
 ## Concept
 **Red Black Tree** is a self-balancing tree data structure invented by Rudolf Bayer in 1972.
 
