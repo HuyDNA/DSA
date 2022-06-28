@@ -10,4 +10,4 @@ Each node in an RBTree has an additional _Color_ bit which is either ![red][red]
 ```
 
 [red]: https://via.placeholder.com/15/f03c15/f03c15.png
-[black]: https://via.placeholder.com/15/101010/101010.png
+[black]: https://via.placeholder.com/15/808080/808080.png
