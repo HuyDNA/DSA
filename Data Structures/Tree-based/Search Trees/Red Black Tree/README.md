@@ -1,5 +1,5 @@
 # Self-balancing Tree - Red Black Tree
-![Red Black Tree][https://upload.wikimedia.org/wikipedia/commons/6/66/Red-black_tree_example.svg]
+![Red Black Tree](https://upload.wikimedia.org/wikipedia/commons/6/66/Red-black_tree_example.svg)
 
 This is based on what I have learned from the book [Introduction to Algorithm](https://mitpress.mit.edu/books/introduction-algorithms-third-edition).
 ## Concept
