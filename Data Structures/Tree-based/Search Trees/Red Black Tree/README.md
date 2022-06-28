@@ -1,7 +1,7 @@
 # Self-balancing Tree - Red Black Tree
 ## Concept
-**Red Black Tree** (RBTree) is a self-balancing tree data structure invented by Rudolf Bayer in 1972.  
-Each node in an **RBTree** has an additional **_Color_** bit which is either ![][red]`Red` or ![][black]`Black`, hence the name. To be more precise, **RBTree** is a **_Binary Search Tree_** with the following properties:
+**Red Black Tree** is a self-balancing tree data structure invented by Rudolf Bayer in 1972.  
+Each node in an **Red Black Tree** has an additional **_Color_** bit which is either ![][red]`Red` or ![][black]`Black`, hence the name. To be more precise, **Red Black Tree** is a **_Binary Search Tree_** with the following properties:
 * Each node is either ![][red]`Red` or ![][black]`Black`. 
 
 ```cpp
