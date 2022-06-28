@@ -18,6 +18,8 @@ Each node in an **Red Black Tree** has an additional ***Color*** bit which is ei
 > **Theorem.** Given $n$ is the number of internal nodes, a **Red Black Tree**'s height is $O(\lg{n})$.
 
 **Proof.**
+
+## Implementation
 ```cpp
 #include <iostream>
 
